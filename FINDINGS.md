@@ -19,7 +19,7 @@ build (3.15). Raw numbers in `results.json`; rerun with `python run.py`.
 | D1 duplicate order_id | not evaluated | yes | yes | yes | no rule (AndreaBozzo/dataprof#904) |
 | D2 customer_id nulls | not evaluated | yes | yes | yes | yes |
 | D3 negative amount | not evaluated | yes | yes | yes | no rule (AndreaBozzo/dataprof#908) |
-| D4 status 'shiped' | not evaluated | yes | yes | yes | no rule, no ticket |
+| D4 status 'shiped' | not evaluated | yes | yes | yes | no rule (AndreaBozzo/dataprof#1067) |
 | D5 email nulls 2% to 15% | not evaluated | yes | yes | yes | yes |
 | D6 added column | yes | yes | yes | yes | no (presence only without a baseline) |
 | D7 '12,50' amounts | yes (type) | yes | yes | yes | finding only, gate cannot use it |
