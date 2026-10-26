@@ -1,5 +1,5 @@
 type: duckdb
 name: orders_ds
 connection:
-  database: "C:/dev/dataprof-dq-comparison/work/orders.duckdb"
+  database: "../work/orders.duckdb"
   schema: main

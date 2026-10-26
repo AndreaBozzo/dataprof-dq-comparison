@@ -12,7 +12,7 @@ import duckdb
 from soda_core.contracts import verify_contract_locally
 
 os.environ["SODA_CORE_TELEMETRY_ENABLED"] = "false"
-with duckdb.connect("C:/dev/dataprof-dq-comparison/work/orders.duckdb") as con:
+with duckdb.connect("../work/orders.duckdb") as con:
     con.execute("CREATE OR REPLACE TABLE orders AS SELECT * FROM read_csv(?)", [sys.argv[1]])
 
 result = verify_contract_locally(

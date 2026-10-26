@@ -12,7 +12,7 @@ ROOT = Path(__file__).parent
 TOOLS = ROOT / "tools"
 DATA = ROOT / "data"
 DP_DEV = ROOT / "envs" / "dataprof013" / "Scripts" / "python.exe"
-JAVA_HOME = "C:/Program Files/Eclipse Adoptium/jdk-17.0.20.101-hotspot"
+JAVA_HOME = os.environ.get("JAVA_HOME", "C:/Program Files/Eclipse Adoptium/jdk-17.0.20.101-hotspot")
 
 # (tool, scenario, script, env python, config files, needs baseline arg)
 RUNS = [

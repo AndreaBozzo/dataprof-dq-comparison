@@ -3,7 +3,7 @@
 **Recheck on the 0.13.0 wheel, 2026-10-26.** `run.py` now runs dataprof from
 `envs/dataprof013` (Python 3.12, PyPI wheel, 25 MB) instead of the dev build.
 All nine dataprof cells give the same verdicts and failed checks as below.
-Issue 1 at the end is fixed in 0.13.0 (#1065): the reordered file now scores
+Issue 1 at the end is fixed in 0.13.0 (AndreaBozzo/dataprof#1065): the reordered file now scores
 key uniqueness 100. The other tools were not rerun.
 
 Versions: dataprof master at 7448871a (0.13 dev; footprint measured on the
@@ -16,9 +16,9 @@ build (3.15). Raw numbers in `results.json`; rerun with `python run.py`.
 
 | defect | Soda v4 | pandera | GX | DQX | dataprof |
 |---|---|---|---|---|---|
-| D1 duplicate order_id | not evaluated | yes | yes | yes | no rule (#904) |
+| D1 duplicate order_id | not evaluated | yes | yes | yes | no rule (AndreaBozzo/dataprof#904) |
 | D2 customer_id nulls | not evaluated | yes | yes | yes | yes |
-| D3 negative amount | not evaluated | yes | yes | yes | no rule (#908) |
+| D3 negative amount | not evaluated | yes | yes | yes | no rule (AndreaBozzo/dataprof#908) |
 | D4 status 'shiped' | not evaluated | yes | yes | yes | no rule, no ticket |
 | D5 email nulls 2% to 15% | not evaluated | yes | yes | yes | yes |
 | D6 added column | yes | yes | yes | yes | no (presence only without a baseline) |
@@ -84,6 +84,6 @@ Times include interpreter start and imports; DQX includes local Spark start.
 1. **Key column chosen by column order.** With no `identifier_columns` hint the
    first id-like name is the key. Putting `customer_id` before `order_id` in
    the accepted file moves the score 99.21 to 96.25 (uniqueness 100 to 80.24):
-   a foreign key is scored as the table key. Filed as #1065, fixed in 0.13.0.
+   a foreign key is scored as the table key. Filed as AndreaBozzo/dataprof#1065, fixed in 0.13.0.
 2. **Raw accessor float noise**: `report["email"].null_percentage` is
    15.010000000000002 (serialized 15.01).
