@@ -1,0 +1,28 @@
+- criticality: error
+  check:
+    function: is_not_null
+    arguments: {column: customer_id}
+- criticality: error
+  check:
+    function: is_unique
+    arguments: {columns: [order_id]}
+- criticality: error
+  check:
+    function: is_not_less_than
+    arguments: {column: amount, limit: 0}
+- criticality: error
+  check:
+    function: is_in_list
+    arguments:
+      column: status
+      allowed: ["'pending'", "'paid'", "'shipped'", "'cancelled'"]
+- criticality: error
+  check:
+    function: has_valid_schema
+    arguments:
+      expected_schema: "order_id INT, customer_id INT, amount DOUBLE, email STRING, country STRING, status STRING, created_at TIMESTAMP"
+      strict: true
+- criticality: error
+  check:
+    function: is_aggr_not_greater_than
+    arguments: {column: "*", aggr_type: count, row_filter: "email IS NULL", limit: 700}

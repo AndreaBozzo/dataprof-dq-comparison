@@ -1,0 +1,29 @@
+dataset: orders_ds/main/orders
+
+checks:
+  - schema:
+
+columns:
+  - name: order_id
+    checks:
+      - duplicate:
+  - name: customer_id
+    checks:
+      - missing:
+  - name: amount
+    data_type: double
+    checks:
+      - invalid:
+          valid_min: 0
+  - name: email
+    checks:
+      - missing:
+          threshold:
+            metric: percent
+            must_be_less_than: 7
+  - name: country
+  - name: status
+    checks:
+      - invalid:
+          valid_values: ['pending', 'paid', 'shipped', 'cancelled']
+  - name: created_at

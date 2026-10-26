@@ -1,0 +1,402 @@
+{
+ "runs": [
+  {
+   "tool": "dataprof",
+   "scenario": "A rules",
+   "file": "accepted",
+   "seconds": 0.2,
+   "passed": true,
+   "failed": [],
+   "note": "pass"
+  },
+  {
+   "tool": "dataprof",
+   "scenario": "A rules",
+   "file": "clean",
+   "seconds": 0.2,
+   "passed": true,
+   "failed": [],
+   "note": "pass"
+  },
+  {
+   "tool": "dataprof",
+   "scenario": "A rules",
+   "file": "today",
+   "seconds": 0.2,
+   "passed": false,
+   "failed": [
+    "max_null_percentage:customer_id",
+    "max_null_percentage:email"
+   ],
+   "note": "fail"
+  },
+  {
+   "tool": "soda",
+   "scenario": "A rules",
+   "file": "accepted",
+   "seconds": 0.9,
+   "passed": true,
+   "failed": [],
+   "note": null
+  },
+  {
+   "tool": "soda",
+   "scenario": "A rules",
+   "file": "clean",
+   "seconds": 0.8,
+   "passed": true,
+   "failed": [],
+   "note": null
+  },
+  {
+   "tool": "soda",
+   "scenario": "A rules",
+   "file": "today",
+   "seconds": 0.9,
+   "passed": false,
+   "failed": [
+    "FAILED:None:schema",
+    "NOT_EVALUATED:amount:invalid",
+    "NOT_EVALUATED:customer_id:missing",
+    "NOT_EVALUATED:email:missing",
+    "NOT_EVALUATED:order_id:duplicate",
+    "NOT_EVALUATED:status:invalid"
+   ],
+   "note": "Query execution failed, continuing with remaining checks: Could not execute aggregation query: Binder Error: Cannot compare values of type VARCHAR and type INTEGER_LITERAL - an explicit cast is required\n\nLINE 11:        SUM(CASE WHEN NOT(\"amount\" IS NULL) AND \"amount\" < 0 THEN 1 END) AS \"m_5\",\n                                                        ^^^^^^^^^^^^"
+  },
+  {
+   "tool": "pandera",
+   "scenario": "A rules",
+   "file": "accepted",
+   "seconds": 0.8,
+   "passed": true,
+   "failed": [],
+   "note": null
+  },
+  {
+   "tool": "pandera",
+   "scenario": "A rules",
+   "file": "clean",
+   "seconds": 0.8,
+   "passed": true,
+   "failed": [],
+   "note": null
+  },
+  {
+   "tool": "pandera",
+   "scenario": "A rules",
+   "file": "today",
+   "seconds": 0.8,
+   "passed": false,
+   "failed": [
+    "amount:dtype('float64')",
+    "amount:greater_than_or_equal_to(0)",
+    "customer_id:dtype('int64')",
+    "customer_id:not_nullable",
+    "email:<lambda>",
+    "nan:column_in_schema",
+    "order_id:field_uniqueness",
+    "status:isin(['pending', 'paid', 'shipped', 'cancelled'])"
+   ],
+   "note": null
+  },
+  {
+   "tool": "gx",
+   "scenario": "A rules",
+   "file": "accepted",
+   "seconds": 2.7,
+   "passed": true,
+   "failed": [],
+   "note": null
+  },
+  {
+   "tool": "gx",
+   "scenario": "A rules",
+   "file": "clean",
+   "seconds": 2.6,
+   "passed": true,
+   "failed": [],
+   "note": null
+  },
+  {
+   "tool": "gx",
+   "scenario": "A rules",
+   "file": "today",
+   "seconds": 2.7,
+   "passed": false,
+   "failed": [
+    "None:expect_table_columns_to_match_set",
+    "amount:expect_column_values_to_be_between",
+    "amount:expect_column_values_to_be_in_type_list",
+    "customer_id:expect_column_values_to_not_be_null",
+    "email:expect_column_values_to_not_be_null",
+    "order_id:expect_column_values_to_be_unique",
+    "status:expect_column_values_to_be_in_set"
+   ],
+   "note": null
+  },
+  {
+   "tool": "dqx",
+   "scenario": "A rules",
+   "file": "accepted",
+   "seconds": 9.0,
+   "passed": true,
+   "failed": [],
+   "note": "0 invalid rows"
+  },
+  {
+   "tool": "dqx",
+   "scenario": "A rules",
+   "file": "clean",
+   "seconds": 8.9,
+   "passed": true,
+   "failed": [],
+   "note": "0 invalid rows"
+  },
+  {
+   "tool": "dqx",
+   "scenario": "A rules",
+   "file": "today",
+   "seconds": 9.3,
+   "passed": false,
+   "failed": [
+    "amount_less_than_limit",
+    "count_greater_than_limit",
+    "customer_id_is_null",
+    "has_invalid_schema",
+    "order_id_is_not_unique",
+    "status_is_not_in_the_list"
+   ],
+   "note": "10000 invalid rows"
+  },
+  {
+   "tool": "dataprof",
+   "scenario": "B learned",
+   "file": "accepted",
+   "seconds": 0.2,
+   "passed": true,
+   "failed": [],
+   "note": "pass"
+  },
+  {
+   "tool": "dataprof",
+   "scenario": "B learned",
+   "file": "clean",
+   "seconds": 0.2,
+   "passed": true,
+   "failed": [],
+   "note": "pass"
+  },
+  {
+   "tool": "dataprof",
+   "scenario": "B learned",
+   "file": "today",
+   "seconds": 0.2,
+   "passed": false,
+   "failed": [
+    "forbid_added_column:coupon_code",
+    "max_null_percentage_increase:email",
+    "max_quality_score_drop:None"
+   ],
+   "note": "fail"
+  },
+  {
+   "tool": "pandera",
+   "scenario": "B learned",
+   "file": "accepted",
+   "seconds": 0.8,
+   "passed": true,
+   "failed": [],
+   "note": null
+  },
+  {
+   "tool": "pandera",
+   "scenario": "B learned",
+   "file": "clean",
+   "seconds": 0.8,
+   "passed": false,
+   "failed": [
+    "created_at:less_than_or_equal_to(2026-10-20 23:59:21)",
+    "order_id:less_than_or_equal_to(10000.0)"
+   ],
+   "note": null
+  },
+  {
+   "tool": "pandera",
+   "scenario": "B learned",
+   "file": "today",
+   "seconds": 0.8,
+   "passed": false,
+   "failed": [
+    "amount:coerce_dtype('float64')",
+    "amount:dtype('float64')",
+    "amount:greater_than_or_equal_to(1.08)",
+    "amount:less_than_or_equal_to(499.97)",
+    "created_at:less_than_or_equal_to(2026-10-20 23:59:21)",
+    "customer_id:coerce_dtype('int64')",
+    "customer_id:dtype('int64')",
+    "customer_id:not_nullable",
+    "order_id:less_than_or_equal_to(10000.0)"
+   ],
+   "note": null
+  },
+  {
+   "tool": "dqx",
+   "scenario": "B learned",
+   "file": "accepted",
+   "seconds": 11.3,
+   "passed": false,
+   "failed": [
+    "amount_isnt_in_range",
+    "customer_id_isnt_in_range",
+    "order_id_isnt_in_range"
+   ],
+   "note": "13 rules: is_not_null({'column': 'order_id'}); is_in_range({'column': 'order_id', 'min_limit': 4, 'max_limit': 3262}); is_not_null({'column': 'customer_id'}); is_in_range({'column': 'customer_id', 'min_limit': 1000, 'max_limit': 9997}); is_not_null({'column': 'amount'}); is_in_range({'column': 'amount', 'min_limit': 1.15, 'max_limit': 499.69}); is_not_empty({'column': 'email', 'trim_strings': True}); is_not_null_and_not_empty({'column': 'country', 'trim_strings': True}); is_in_list({'column': 'country', 'allowed': [\"'DE'\", \"'FR'\", \"'IT'\", \"'ES'\", \"'US'\"]}); is_not_null_and_not_empty({'column': 'status', 'trim_strings': True}); is_in_list({'column': 'status', 'allowed': [\"'pending'\", \"'shipped'\", \"'cancelled'\", \"'paid'\"]}); is_not_null({'column': 'created_at'}); is_in_range({'column': 'created_at', 'min_limit': '2026-10-19T00:00:00.000000+0000', 'max_limit': '2026-10-21T00:00:00.000000+0000'})"
+  },
+  {
+   "tool": "dqx",
+   "scenario": "B learned",
+   "file": "clean",
+   "seconds": 11.7,
+   "passed": false,
+   "failed": [
+    "amount_isnt_in_range",
+    "created_at_isnt_in_range",
+    "customer_id_isnt_in_range",
+    "order_id_isnt_in_range"
+   ],
+   "note": "13 rules: is_not_null({'column': 'order_id'}); is_in_range({'column': 'order_id', 'min_limit': 5, 'max_limit': 3351}); is_not_null({'column': 'customer_id'}); is_in_range({'column': 'customer_id', 'min_limit': 1000, 'max_limit': 9997}); is_not_null({'column': 'amount'}); is_in_range({'column': 'amount', 'min_limit': 1.31, 'max_limit': 499.15}); is_not_empty({'column': 'email', 'trim_strings': True}); is_not_null_and_not_empty({'column': 'country', 'trim_strings': True}); is_in_list({'column': 'country', 'allowed': [\"'FR'\", \"'IT'\", \"'ES'\", \"'DE'\", \"'US'\"]}); is_not_null_and_not_empty({'column': 'status', 'trim_strings': True}); is_in_list({'column': 'status', 'allowed': [\"'shipped'\", \"'cancelled'\", \"'pending'\", \"'paid'\"]}); is_not_null({'column': 'created_at'}); is_in_range({'column': 'created_at', 'min_limit': '2026-10-19T00:00:00.000000+0000', 'max_limit': '2026-10-21T00:00:00.000000+0000'})"
+  },
+  {
+   "tool": "dqx",
+   "scenario": "B learned",
+   "file": "today",
+   "seconds": 11.3,
+   "passed": false,
+   "failed": [
+    "amount_isnt_in_range",
+    "created_at_isnt_in_range",
+    "customer_id_is_null",
+    "customer_id_isnt_in_range",
+    "order_id_isnt_in_range",
+    "status_other_value"
+   ],
+   "note": "13 rules: is_not_null({'column': 'order_id'}); is_in_range({'column': 'order_id', 'min_limit': 10, 'max_limit': 3185}); is_not_null({'column': 'customer_id'}); is_in_range({'column': 'customer_id', 'min_limit': 1000, 'max_limit': 9997}); is_not_null({'column': 'amount'}); is_in_range({'column': 'amount', 'min_limit': 1.08, 'max_limit': 497.21}); is_not_empty({'column': 'email', 'trim_strings': True}); is_not_null_and_not_empty({'column': 'country', 'trim_strings': True}); is_in_list({'column': 'country', 'allowed': [\"'IT'\", \"'DE'\", \"'FR'\", \"'ES'\", \"'US'\"]}); is_not_null_and_not_empty({'column': 'status', 'trim_strings': True}); is_in_list({'column': 'status', 'allowed': [\"'cancelled'\", \"'pending'\", \"'paid'\", \"'shipped'\"]}); is_not_null({'column': 'created_at'}); is_in_range({'column': 'created_at', 'min_limit': '2026-10-19T00:00:00.000000+0000', 'max_limit': '2026-10-21T00:00:00.000000+0000'})"
+  },
+  {
+   "tool": "dataprof",
+   "scenario": "C zero",
+   "file": "accepted",
+   "seconds": 0.2,
+   "passed": true,
+   "failed": [
+    "info:sensitive_pattern:email"
+   ],
+   "note": null
+  },
+  {
+   "tool": "dataprof",
+   "scenario": "C zero",
+   "file": "clean",
+   "seconds": 0.2,
+   "passed": true,
+   "failed": [
+    "info:sensitive_pattern:email"
+   ],
+   "note": null
+  },
+  {
+   "tool": "dataprof",
+   "scenario": "C zero",
+   "file": "today",
+   "seconds": 0.2,
+   "passed": true,
+   "failed": [
+    "info:sensitive_pattern:email",
+    "warning:locale_numbers:amount",
+    "warning:null_heavy:coupon_code"
+   ],
+   "note": null
+  },
+  {
+   "tool": "ydata",
+   "scenario": "C zero",
+   "file": "accepted",
+   "seconds": 3.7,
+   "passed": true,
+   "failed": [
+    "MISSING:email",
+    "UNIFORM:order_id",
+    "UNIQUE:order_id"
+   ],
+   "note": null
+  },
+  {
+   "tool": "ydata",
+   "scenario": "C zero",
+   "file": "clean",
+   "seconds": 3.5,
+   "passed": true,
+   "failed": [
+    "MISSING:email",
+    "UNIFORM:order_id",
+    "UNIQUE:order_id"
+   ],
+   "note": null
+  },
+  {
+   "tool": "ydata",
+   "scenario": "C zero",
+   "file": "today",
+   "seconds": 3.5,
+   "passed": true,
+   "failed": [
+    "MISSING:coupon_code",
+    "MISSING:email",
+    "UNIFORM:order_id"
+   ],
+   "note": null
+  }
+ ],
+ "meta": {
+  "lines": {
+   "dataprof|A rules": 6,
+   "soda|A rules": 41,
+   "pandera|A rules": 20,
+   "gx|A rules": 26,
+   "dqx|A rules": 37,
+   "dataprof|B learned": 10,
+   "pandera|B learned": 8,
+   "dqx|B learned": 11,
+   "dataprof|C zero": 2,
+   "ydata|C zero": 3
+  },
+  "footprint": {
+   "dataprof012": {
+    "packages": 1,
+    "mb": 24
+   },
+   "soda": {
+    "packages": 30,
+    "mb": 75
+   },
+   "pandera": {
+    "packages": 15,
+    "mb": 107
+   },
+   "gx": {
+    "packages": 37,
+    "mb": 275
+   },
+   "dqx": {
+    "packages": 31,
+    "mb": 597
+   },
+   "ydata": {
+    "packages": 56,
+    "mb": 515
+   }
+  },
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]"
+ }
+}
