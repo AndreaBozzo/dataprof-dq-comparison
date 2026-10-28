@@ -1,5 +1,8 @@
 # Findings, 2026-10-24
 
+**Recheck on the 0.13.1 wheel, 2026-10-28.** `envs/dataprof013` now holds 0.13.1; all nine
+dataprof cells give the verdicts and failed checks recorded below. The other tools were not rerun.
+
 **Recheck on the 0.13.0 wheel, 2026-10-26.** `run.py` now runs dataprof from
 `envs/dataprof013` (Python 3.12, PyPI wheel, 25 MB) instead of the dev build.
 All nine dataprof cells give the same verdicts and failed checks as below.

@@ -34,7 +34,7 @@ meet. The layout is Windows (`envs/<tool>/Scripts/python.exe`); the versions
 are the ones in [FINDINGS.md](FINDINGS.md).
 
 ```bash
-for spec in "dataprof013 dataprof==0.13.0" "soda soda-duckdb==4.28.0" \
+for spec in "dataprof013 dataprof==0.13.1" "soda soda-duckdb==4.28.0" \
             "pandera pandera==0.34.1" "gx great-expectations==1.24.1" \
             "dqx databricks-labs-dqx==0.17.0 pyspark==3.5.9" "ydata ydata-profiling==4.18.4"; do
   set -- $spec; env=$1; shift
