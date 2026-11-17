@@ -71,7 +71,7 @@ through the `locale_numbers` finding, not a numeric type rule (#1025).
 
 | | today |
 |---|---|
-| dataprof `findings()` (2 lines) | locale_numbers amount (D7), null_heavy coupon_code; from 0.14.0 also an info-level sensitive_pattern on email, on every file |
+| dataprof `findings()` (2 lines) | locale_numbers amount (D7), null_heavy coupon_code (and an info-level sensitive_pattern on email, on every file) |
 | ydata-profiling alerts (3 lines) | MISSING email/coupon_code; D1 visible only because `UNIQUE:order_id` disappears |
 
 Neither flags D1, D3, D4. dataprof already computes what D1 and D3 need
