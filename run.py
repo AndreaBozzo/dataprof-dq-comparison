@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 TOOLS = ROOT / "tools"
 DATA = ROOT / "data"
-DP_DEV = ROOT / "envs" / "dataprof013" / "Scripts" / "python.exe"
+DP_DEV = ROOT / "envs" / "dataprof014" / "Scripts" / "python.exe"
 JAVA_HOME = os.environ.get("JAVA_HOME", "C:/Program Files/Eclipse Adoptium/jdk-17.0.20.101-hotspot")
 
 # (tool, scenario, script, env python, config files, needs baseline arg)
@@ -69,7 +69,7 @@ def main():
             print(f"{tool:9} {scenario:10} {f:9} {dt:5.1f}s passed={res['passed']} {res['failed']}", flush=True)
     meta = {
         "lines": {f"{t}|{s}": user_lines(sc, c) for t, s, sc, _, c, _ in RUNS},
-        "footprint": {e: footprint(e) for e in ["dataprof013", "soda", "pandera", "gx", "dqx", "ydata"]},
+        "footprint": {e: footprint(e) for e in ["dataprof014", "soda", "pandera", "gx", "dqx", "ydata"]},
         "python": sys.version,
     }
     (ROOT / "results.json").write_text(json.dumps({"runs": out, "meta": meta}, indent=1))

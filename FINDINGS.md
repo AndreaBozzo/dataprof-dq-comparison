@@ -1,5 +1,12 @@
 # Findings, 2026-10-24
 
+**Recheck on the 0.14.0 wheel, 2026-11-17.** `envs/dataprof014` holds 0.14.0, and
+scenario A uses its new rules: `unique_columns` for R2 (AndreaBozzo/dataprof#904),
+an exact `max_null_count` for R1, and `forbid_findings=["locale_numbers"]` for R7.
+dataprof now catches D1, D2, D5 and D7 in scenario A, still with no false
+positives; scenarios B and C give the verdicts recorded below. The other tools
+were not rerun.
+
 **Recheck on the 0.13.1 wheel, 2026-10-28.** `envs/dataprof013` now holds 0.13.1; all nine
 dataprof cells give the verdicts and failed checks recorded below. The other tools were not rerun.
 
@@ -19,15 +26,15 @@ build (3.15). Raw numbers in `results.json`; rerun with `python run.py`.
 
 | defect | Soda v4 | pandera | GX | DQX | dataprof |
 |---|---|---|---|---|---|
-| D1 duplicate order_id | not evaluated | yes | yes | yes | no rule (AndreaBozzo/dataprof#904) |
+| D1 duplicate order_id | not evaluated | yes | yes | yes | yes, `unique_columns` (0.14.0) |
 | D2 customer_id nulls | not evaluated | yes | yes | yes | yes |
 | D3 negative amount | not evaluated | yes | yes | yes | no rule (AndreaBozzo/dataprof#908) |
 | D4 status 'shiped' | not evaluated | yes | yes | yes | no rule (AndreaBozzo/dataprof#1067) |
 | D5 email nulls 2% to 15% | not evaluated | yes | yes | yes | yes |
 | D6 added column | yes | yes | yes | yes | no (presence only without a baseline) |
-| D7 '12,50' amounts | yes (type) | yes | yes | yes | finding only, gate cannot use it |
+| D7 '12,50' amounts | yes (type) | yes | yes | yes | yes, `forbid_findings` on `locale_numbers` (0.14.0); no type rule |
 | false positives on accepted/clean | none | none | none | none | none |
-| user lines (code + config) | 41 | 20 | 26 | 37 | 6 |
+| user lines (code + config) | 41 | 20 | 26 | 37 | 9 |
 
 Soda: one text value makes `amount` VARCHAR in DuckDB, the batched aggregate
 query fails with a binder error, and five unrelated checks are NOT_EVALUATED.
@@ -37,7 +44,9 @@ DQX: `DQEngine` calls `ws.clusters.select_spark_version()` at construction, so
 outside Databricks it needs a mocked WorkspaceClient. A dataset-level failure
 (schema) moves every row to the invalid split.
 
-dataprof's 6 lines are short because 4 of the 7 rules cannot be written.
+dataprof's 9 lines are short because 2 of the 7 rules still cannot be written:
+bounds (R3, AndreaBozzo/dataprof#908) and a value set (R4). R7 is caught
+through the `locale_numbers` finding, not a numeric type rule (#1025).
 
 ## Scenario B: learn from the accepted file, gate the next ones
 
@@ -62,18 +71,20 @@ dataprof's 6 lines are short because 4 of the 7 rules cannot be written.
 
 | | today |
 |---|---|
-| dataprof `findings()` (2 lines) | locale_numbers amount (D7), null_heavy coupon_code |
+| dataprof `findings()` (2 lines) | locale_numbers amount (D7), null_heavy coupon_code; from 0.14.0 also an info-level sensitive_pattern on email, on every file |
 | ydata-profiling alerts (3 lines) | MISSING email/coupon_code; D1 visible only because `UNIQUE:order_id` disappears |
 
 Neither flags D1, D3, D4. dataprof already computes what D1 and D3 need
-(`key_uniqueness` 99.95 on order_id, min -18.94) but no finding reads it. D4
+(`key_uniqueness` 99.95 on order_id, min -18.94). Since 0.14.0 the
+`key_duplicates` finding reads it, but only for a key declared with
+`identifier_columns`, which zero config does not do. D4
 needs value counts the report does not hold.
 
 ## Footprint and time
 
 | | packages | MB installed | prerequisites | one run (10k rows) |
 |---|---|---|---|---|
-| dataprof 0.12.0 | 1 | 24 | none | 0.2 s |
+| dataprof 0.14.0 | 1 | 27 | none | 0.4 s |
 | Soda v4 + DuckDB | 30 | 75 | load the CSV into DuckDB first | 0.9 s |
 | pandera | 15 | 107 | pandas | 0.8 s |
 | GX | 37 | 275 | pandas | 2.7 s |
